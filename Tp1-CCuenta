@@ -1,1 +1,51 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class CCuenta {
+private:
+        string titular;
+        double cantidad;
+
+public:
+    
+    CCuenta(string nombreTitular, double saldoInicial) {
+        titular = nombreTitular;
+        cantidad = saldoInicial;
+    }
+
+    void ingresar(double cantidadIngresada) {
+        if (cantidadIngresada > 0) {
+            cantidad += cantidadIngresada;
+            cout << "Se han ingresado " << cantidadIngresada << " a la cuenta." << endl;
+        } else {
+            cout << "No se puede ingresar una cantidad negativa." << endl;
+        }
+    }
+
+    void retirar(double cantidadRetirada) {
+        if (cantidadRetirada > 0) {
+            if (cantidadRetirada <= cantidad) {
+                cantidad -= cantidadRetirada;
+                cout << "Se han retirado " << cantidadRetirada << " de la cuenta." << endl;
+            } else {
+                cantidad = 0;
+                cout << "No hay suficiente saldo en la cuenta. El saldo actual es $0." << endl;
+            }
+        } 
+    }
+    double obtenerSaldo(){
+        return cantidad;
+    }
+};
+
+int main() {
+    CCuenta miCuenta("Juan Pérez", 1000);
+    miCuenta.ingresar(200);
+    miCuenta.retirar(150);
+
+    cout << "Saldo actual: $" << miCuenta.obtenerSaldo() << endl;
+
+    return 0;
+}
 
