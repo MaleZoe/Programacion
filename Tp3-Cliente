@@ -1,0 +1,37 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Cliente {
+private:
+    string nombre;
+    string tarjetaCredito;
+    string dni;
+
+public:
+    Cliente(string nombre, string tarjetaCredito, string dni) 
+        : nombre(nombre), tarjetaCredito(tarjetaCredito), dni(dni) {}
+
+    string getNombre() {
+        return nombre;
+    }
+
+    string getNumeroTarjetaCredito() {
+        return tarjetaCredito;
+    }
+
+    string getDNI() {
+        return dni;
+    }
+};
+
+int main() {
+    Cliente cliente1("Maria Gonzales", "1265-5908-9871-1871", "22473878");
+    
+    cout << "Nombre: " << cliente1.getNombre() << endl;
+    cout << "Número de Tarjeta de Crédito: " << cliente1.getNumeroTarjetaCredito() << endl;
+    cout << "DNI: " << cliente1.getDNI() << endl;
+        
+    return 0;
+}
