@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+const double PLUS = 30000;
+
+class Empleado {
+protected:
+    string nombre;
+    int edad;
+    double salario;
+
+public:
+    Empleado(string nombre, int edad, double salario) : nombre(nombre), edad(edad), salario(salario) {}
+
+    virtual ~Empleado() {}
+    string getNombre() { return nombre; }
+    int getEdad() { return edad; }
+    double getSalario() { return salario; }
+
+    void setNombre(string nombre) { this->nombre = nombre; }
+    void setEdad(int edad) { this->edad = edad; }
+    void setSalario(double salario) { this->salario = salario; }
+
+    virtual void plus() = 0;
+
+    virtual string toString() {
+        stringstream ss;
+        ss << "Nombre: " << nombre << ", Edad: " << edad << ", Salario: " << salario;
+        return ss.str();
+    }
+};
+
+class Comercial : public Empleado {
+private:
+    double comision;
+
+public:
+    Comercial(string nombre, int edad, double salario, double comision) : Empleado(nombre, edad, salario), comision(comision) {}
+
+    double getComision() { return comision; }
+    void setComision(double comision) { this->comision = comision; }
+
+    void plus() override {
+        if (edad > 30 && comision > 200) {
+            salario += PLUS;
+        }
+    }
+
+    string toString() override {
+        stringstream ss;
+        ss << Empleado::toString() << ", Comisión: " << comision;
+        return ss.str();
+    }
+};
+
+class Repartidor : public Empleado {
+private:
+    string zona;
+
+public:
+    Repartidor(string nombre, int edad, double salario, string zona) : Empleado(nombre, edad, salario), zona(zona) {}
+
+    string getZona() { return zona; }
+    void setZona(string zona) { this->zona = zona; }
+
+    void plus() override {
+        if (edad < 25 && zona == "zona 3") {
+            salario += PLUS;
+        }
+    }
+
+    string toString() override {
+        stringstream ss;
+        ss << Empleado::toString() << ", Zona: " << zona;
+        return ss.str();
+    }
+};
+
+int main() {
+    Comercial comercial1("Juan", 35, 50000, 300);
+    Repartidor repartidor1("Pedro", 22, 40000, "zona 3");
+
+    cout << "Antes del plus:" << endl;
+    cout << comercial1.toString() << endl;
+    cout << repartidor1.toString() << endl;
+
+    comercial1.plus();
+    repartidor1.plus();
+
+    cout << "Después del plus:" << endl;
+    cout << comercial1.toString() << endl;
+    cout << repartidor1.toString() << endl;
+
+    return 0;
+}
