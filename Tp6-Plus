@@ -25,7 +25,7 @@ public:
 
     virtual void plus() = 0;
 
-    virtual string toString() {
+    string toString() {
         stringstream ss;
         ss << "Nombre: " << nombre << ", Edad: " << edad << ", Salario: " << salario;
         return ss.str();
