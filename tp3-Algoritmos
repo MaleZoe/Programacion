@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Alumno {
+public:
+    string nombre;
+    int finesSemana;
+    bool sirveMateria;
+
+    Alumno(string nombre, int finesSemana, bool sirveMateria) {
+        this->nombre = nombre;
+        this->finesSemana = finesSemana;
+        this->sirveMateria = sirveMateria;
+    }
+
+    bool cumpleCondiciones() {
+        return !sirveMateria || finesSemana < 5;
+    }
+};
+
+int main() {
+    int cantidadAlumnos;
+    cout << "Ingrese la cantidad de alumnos: ";
+    cin >> cantidadAlumnos;
+    cin.ignore();  
+
+    vector<Alumno> alumnos;
+
+    for (int i = 0; i < cantidadAlumnos; i++) {
+        string nombre;
+        int finesSemana;
+        string sirveMateriaInput;
+        bool sirveMateria = false;
+
+        cout << "Alumno " << i + 1 << ":\n";
+        cout << "Nombre: ";
+        getline(cin, nombre);  
+        cout << "Fines de semana perdidos: ";
+        cin >> finesSemana;
+        cout << "¿Sirve de algo la materia? (si/no): ";
+        cin >> sirveMateriaInput;
+
+        if (sirveMateriaInput == "si" || sirveMateriaInput == "SI" || sirveMateriaInput == "Si") {
+            sirveMateria = true;
+        }
+
+        cin.ignore(); 
+
+        alumnos.push_back(Alumno(nombre, finesSemana, sirveMateria));
+    }
+
+    cout << "\nAlumnos que respondieron NO o tienen menos de 5 fines de semana perdidos:\n";
+    for (int i = 0; i < cantidadAlumnos; i++) {
+        if (alumnos[i].cumpleCondiciones()) {
+            cout << "Nombre: " << alumnos[i].nombre << "\n";
+        }
+    }
+
+    return 0;
+}
